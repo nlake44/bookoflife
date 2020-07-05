@@ -25,7 +25,7 @@ app = Flask(__name__)
 def bitcoin_address():
     """Return a friendly HTTP greeting."""
     return """Bitcoin Address: 1KXWnz3NGNPAnvxzbXMf54aRsftduUAqf4 </br></br>
-           <href a="https://i.imgur.com/skKXV5K.png"></a>"""
+           <a href="https://i.imgur.com/skKXV5K.png"></a>"""
 
 
 if __name__ == '__main__':
