@@ -1,0 +1,6 @@
+## Installation
+
+- Install the google cloud SDK
+- Make sure python3 is aliased in your bash/zsh
+- pip install -t lib -r requirements.txt
+

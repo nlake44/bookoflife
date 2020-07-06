@@ -13,8 +13,13 @@
 # limitations under the License.
 
 # [START gae_python37_app]
+
+import sys
+sys.path.append('lib')
 from flask import Flask
 
+# [START gae_python38_datastore_store_and_fetch_times]
+from google.cloud import datastore
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
@@ -23,7 +28,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def bitcoin_address():
-    """Return a friendly HTTP greeting."""
+    """Return a bitcoin information."""
     return """Bitcoin Address: 1KXWnz3NGNPAnvxzbXMf54aRsftduUAqf4 </br></br>
            <a href="https://i.imgur.com/skKXV5K.png"><img src="https://i.imgur.com/skKXV5K.png"> </a>"""
 
