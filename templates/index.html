@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+  <title>Datastore and Firebase Auth Example</title>
+
+  <!-- See https://github.com/firebase/firebaseui-web. -->
+  <!-- [START gae_python38_auth_init_firebase] -->
+  <!-- *******************************************************************************************
+       * TODO(DEVELOPER): Paste the initialization snippet from:
+       * http://console.firebase.google.com > Overview > Add Firebase to your web app.
+       ***************************************************************************************** -->
+<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<!-- Initialize Firebase -->
+<script>
+  var config = {
+    apiKey: "AIzaSyACy9FUD6DPD3s_uZJvadb0vasgAQ4sylw",
+    authDomain: "aclubabove.firebaseapp.com",
+    databaseURL: "https://aclubabove.firebaseio.com",
+    projectId: "aclubabove",
+    storageBucket: "aclubabove.appspot.com",
+    messagingSenderId: "<SENDER_ID>"
+  };
+  firebase.initializeApp(config);
+</script>
+  <!-- [END gae_python38_auth_init_firebase] -->
+  <script>
+    if (typeof firebase === 'undefined') {
+      const msg = "Please paste the Firebase initialization snippet into index.html. See https://console.firebase.google.com > Overview > Add Firebase to your web app.";
+      console.log(msg);
+      alert(msg);
+    }
+  </script>
+  <!-- [START gae_python38_auth_include_firebaseui] -->
+  <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css" />
+  <!-- [END gae_python38_auth_include_firebaseui] -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<!-- [START gae_python38_auth_firebase_html] -->
+<h1>Datastore and Firebase Auth Example</h1>
+
+<div id="firebaseui-auth-container"></div>
+
+<button id="sign-out" hidden=true>Sign Out</button>
+
+<div id="login-info" hidden=true>
+  <h2>Login info:</h2>
+  {% if user_data %}
+    <dl>
+      <dt>Name</dt><dd>{{ user_data['name'] }}</dd>
+      <dt>Email</dt><dd>{{ user_data['email'] }}</dd>
+      <dt>Last 10 visits</dt><dd>
+	{% for time in times %}
+          <p>{{ time['timestamp'] }}</p>
+        {% endfor %} </dd>
+    </dl>
+  {% elif error_message %}
+    <p>Error: {{ error_message }}</p>
+  {% endif %}
+</div>
+<h2>Join the club</h2>
+<h3>Send your bitcoins here:</h3>
+Bitcoin Address: 1KXWnz3NGNPAnvxzbXMf54aRsftduUAqf4 </br></br>
+<a href="https://i.imgur.com/skKXV5K.png"><img src="https://i.imgur.com/skKXV5K.png"> </a>
+<!-- [END gae_python38_auth_firebase_html] -->
+</body>
+</html>
+
+
