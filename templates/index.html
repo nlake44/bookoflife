@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>A Club Above</title>
+  <title>Raj's Book of Life</title>
 
   <!-- See https://github.com/firebase/firebaseui-web. -->
   <!-- [START gae_python38_auth_init_firebase] -->
@@ -53,7 +53,7 @@
 </head>
 <body>
 <!-- [START gae_python38_auth_firebase_html] -->
-<h1>A Club Above</h1>
+<h1>Raj's Book of Life</h1>
 
 <div id="firebaseui-auth-container"></div>
 
@@ -62,22 +62,36 @@
 <div id="login-info" hidden=true>
   <h2>Login info:</h2>
   {% if user_data %}
+    <p>You have signed Raj's Book of Life as:</p>
     <dl>
       <dt>Name</dt><dd>{{ user_data['name'] }}</dd>
       <dt>Email</dt><dd>{{ user_data['email'] }}</dd>
-      <dt>Last 10 visits</dt><dd>
+      <br>
+      <br>
+      <dt><h3>Last 10 signings</h3></dt><dd>
 	{% for time in times %}
-          <p>{{ time['timestamp'] }}</p>
+          <p>{{ user_data['name'] }} ({{ time['timestamp'] }})</p>
         {% endfor %} </dd>
     </dl>
   {% elif error_message %}
     <p>Error: {{ error_message }}</p>
   {% endif %}
 </div>
-<h2>Join the club</h2>
+<br>
+<br>
+<h1>Instructions</h1>
+<p>Send 10% of your total assets if more than 1M USD and 10% for the remaining amount.</p>
+<p>Example: Your net worth is 100,000USD, you would send 10,000USD.</p>
+<p>Example: Your net worth is 100,000,000USD you would send 99,010,000USD.</p>
+<p>Example: Your net worth is 100USD you would send 10USD.</p>
+<p>All transactions are based on the honor system verified by God.</p>
+<h2>Payment into the Book of life is via Bitcoin, cash, or check.</h2>
 <h3>Send your bitcoins here:</h3>
 Bitcoin Address: 1KXWnz3NGNPAnvxzbXMf54aRsftduUAqf4 </br></br>
 <a href="https://i.imgur.com/skKXV5K.png"><img src="https://i.imgur.com/skKXV5K.png"> </a>
+<h3>Send checks or cash to:</h3>
+<p>11301 Paso Robles</p>
+<p>Granada Hills, CA 91344</p>
 <!-- [END gae_python38_auth_firebase_html] -->
 </body>
 </html>

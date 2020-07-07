@@ -29,17 +29,21 @@ app = Flask(__name__)
 
 datastore_client = datastore.Client()
 
-def store_time(dt):
-    entity = datastore.Entity(key=datastore_client.key('visit'))
+def store_data(dt, claim):
+    if 'email' not in claim:
+        return
+    entity = datastore.Entity(key=datastore_client.key('signing'))
     entity.update({
-        'timestamp': dt
+        'timestamp': dt,
+        'email': claim['email'],
+        'name': claim['name']
     })
 
     datastore_client.put(entity)
 
 
-def fetch_times(limit):
-    query = datastore_client.query(kind='visit')
+def fetch_data(limit):
+    query = datastore_client.query(kind='signing')
     query.order = ['-timestamp']
 
     times = query.fetch(limit=limit)
@@ -55,6 +59,7 @@ def root():
     times = None
 
     if id_token:
+        claims = {}
         try:
             # Verify the token against the Firebase Auth API. This example
             # verifies the token on each page load. For improved performance,
@@ -63,6 +68,8 @@ def root():
             # http://flask.pocoo.org/docs/1.0/quickstart/#sessions).
             claims = google.oauth2.id_token.verify_firebase_token(
                 id_token, firebase_request_adapter)
+            if claims['email']:
+                datastore
         except ValueError as exc:
             # This will be raised if the token is expired or any other
             # verification checks fail.
@@ -71,8 +78,8 @@ def root():
         # Record and fetch the recent times a logged-in user has accessed
         # the site. This is currently shared amongst all users, but will be
         # individualized in a following step.
-        store_time(datetime.datetime.now())
-        times = fetch_times(10)
+        store_data(datetime.datetime.now(), claims)
+        times = fetch_data(10)
 
     return render_template(
         'index.html',
